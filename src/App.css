@@ -1,0 +1,363 @@
+/*
+ * === KAWAII RETRO PIXEL THEME ===
+ */
+
+/* --- 1. FONTS & ROOT COLORS --- */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Press+Start+2P&display=swap');
+
+:root {
+  /* Fonts */
+  --font-pixel: 'Press Start 2P', cursive;
+  --font-body: 'M PLUS Rounded 1c', sans-serif;
+
+  /* Kawaii Color Palette */
+  --bg-main: #fff0f5; /* Pale Pink */
+  --surface: #ffffff; /* White windows */
+  --border-color: #fbcfe8; /* Medium Pink */
+  --shadow-color: #f9a8d4; /* Darker Pink */
+  
+  --text-main: #581c87; /* Dark Purple */
+  --text-header: #9333ea; /* Bright Purple */
+  
+  --blue: #c0e1ff;
+  --blue-shadow: #7aa5ff;
+  
+  --green: #d1fae5;
+  --green-shadow: #6ee7b7;
+
+  --red: #fee2e2;
+  --red-shadow: #fca5a5;
+  
+  --grey: #e5e7eb;
+  --grey-shadow: #9ca3af;
+}
+
+/* --- 2. BASE & BODY (GRID + CUTESY SPRITES) --- */
+body {
+  font-family: var(--font-body);
+  font-weight: 700;
+  background-color: var(--bg-main); /* Pale Pink */
+  margin: 0;
+  padding: 20px;
+  color: var(--text-main);
+
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+
+  /* --- NEW: Layered Background --- */
+  background-image:
+    /* Layer 1: Pixel Cloud (embedded SVG) */
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 8 5" shape-rendering="crispEdges"><path fill="white" d="M2 1h4v1h1v1h1v1H7v1H1V4H0V3H1V2H2V1z"/><path fill="%23fbcfe8" d="M2 2h4v1h1v1H1V3H2V2z"/></svg>'),
+    
+    /* Layer 2: Pixel Sparkle (embedded SVG) */
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 5 5" shape-rendering="crispEdges"><path fill="%23f9a8d4" d="M2 0h1v1H2V0zm-1 1h1v1H1V1zm2 0h1v1H3V1zm-1 1h1v1H2V2zm-1 1h1v1H1V3zm2 0h1v1H3V3zm-1 1h1v1H2V4z"/></svg>'),
+    
+    /* Layer 3: The Grid */
+    linear-gradient(to right, rgba(251, 207, 232, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(251, 207, 232, 0.4) 1px, transparent 1px);
+  
+  /* --- NEW: No-Repeat & Positioning --- */
+  background-repeat:
+    no-repeat,    /* Don't tile the cloud */
+    no-repeat,    /* Don't tile the sparkle */
+    repeat,       /* Tile the grid */
+    repeat;
+    
+  background-position:
+    top 40px right 50px,  /* Cloud: 40px from top, 50px from right */
+    top 100px left 60px, /* Sparkle: 100px from top, 60px from left */
+    0 0,                  /* Grid */
+    0 0;
+  
+  background-size:
+    64px 40px,   /* Cloud size (8x5 * 8) */
+    40px 40px,   /* Sparkle size (5x5 * 8) */
+    20px 20px,   /* Grid size */
+    20px 20px;
+
+  /* NEW: Fixes the sprites in place so they don't scroll */
+  background-attachment: fixed;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header h1 {
+  font-family: var(--font-pixel);
+  font-size: 26px; /* Pixel fonts need specific sizes */
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--text-header);
+  text-shadow: 2px 2px 0px var(--surface);
+}
+
+main {
+  display: flex;
+  gap: 25px;
+}
+
+/* --- 3. RETRO "WINDOWS" (The columns) --- */
+.projects-column,
+.tasks-column {
+  background-color: var(--surface);
+  border: 4px solid var(--border-color);
+  border-radius: 12px;
+  /* This is the hard retro shadow! */
+  box-shadow: 6px 6px 0px 0px var(--shadow-color);
+  padding: 20px;
+  flex: 1;
+  min-height: 400px;
+}
+
+h2 {
+  font-family: var(--font-pixel);
+  font-size: 16px;
+  color: var(--text-header);
+  margin-top: 0;
+  border-bottom: 3px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+/* --- 4. RETRO BUTTONS & FORMS --- */
+
+/* Base button style */
+.button-add,
+.button-ai {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-main);
+  padding: 12px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  white-space: nowrap;
+}
+/* The "press-down" effect */
+.button-add:active,
+.button-ai:active {
+  box-shadow: none !important;
+  transform: translate(3px, 3px);
+}
+
+/* Add Button (Green) */
+.button-add {
+  background-color: var(--green);
+  border: 3px solid var(--green-shadow);
+  box-shadow: 3px 3px 0px 0px var(--green-shadow);
+}
+
+/* AI Button (Blue) */
+.button-ai {
+  background-color: var(--blue);
+  border: 3px solid var(--blue-shadow);
+  box-shadow: 3px 3px 0px 0px var(--blue-shadow);
+}
+
+/* Form containers */
+.project-form,
+.task-form {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 8px;
+}
+
+/* Inputs */
+.project-form input,
+.task-form input {
+  flex: 1;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px;
+  border: 3px solid var(--border-color);
+  border-radius: 8px;
+  background-color: #fff;
+  color: var(--text-main);
+}
+.project-form input:focus,
+.task-form input:focus {
+  border-color: var(--blue-shadow);
+  outline: none;
+  box-shadow: 0 0 0 4px var(--blue);
+}
+.task-form input::placeholder {
+  color: var(--border-color);
+}
+
+/* --- 5. LISTS (Projects & Tasks) --- */
+.project-list,
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.project-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 5px; /* space for scrollbar */
+}
+
+/* Project Item */
+.project-item {
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 3px solid transparent;
+}
+.project-item:hover {
+  background-color: var(--bg-main);
+}
+.project-item.selected {
+  background-color: var(--blue);
+  border: 3px solid var(--blue-shadow);
+  color: var(--text-main);
+}
+
+/* Task Item */
+.task-item {
+  background-color: #fff;
+  border: 3px solid var(--border-color);
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.task-item.completed span {
+  text-decoration: line-through;
+  color: var(--grey-shadow);
+}
+.task-item input[type="checkbox"] {
+  /* Making a "cutesy" checkbox */
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+.task-item input[type="checkbox"]:checked {
+  background-color: var(--green);
+  border-color: var(--green-shadow);
+}
+.task-item input[type="checkbox"]:checked::after {
+  content: '✔'; /* You can use a '♥' or '✨' too! */
+  color: var(--text-main);
+  position: absolute;
+  font-size: 12px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Delete Button */
+.delete-button {
+  background-color: var(--red);
+  border: 2px solid var(--red-shadow);
+  color: var(--red-shadow);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+.delete-button:hover {
+  background-color: var(--red-shadow);
+  color: #fff;
+}
+/* Project delete button visibility */
+.project-item .delete-button { visibility: hidden; }
+.project-item:hover .delete-button,
+.project-item.selected .delete-button { visibility: visible; }
+
+/* Edit Task Input */
+.task-content span {
+  flex: 1;
+  padding: 5px;
+  cursor: text;
+  border: 1px solid transparent;
+}
+.edit-task-input {
+  flex: 1;
+  padding: 5px;
+  font-size: 16px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  border: 1px solid var(--blue-shadow);
+  border-radius: 4px;
+  outline: none;
+}
+
+/* --- 6. UI STATES (Loading, Complete, Empty) --- */
+
+/* No Tasks Message */
+.no-tasks-msg {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--border-color);
+  font-family: var(--font-pixel);
+  font-size: 10px;
+}
+
+/* Loading Spinner */
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--text-main);
+  font-family: var(--font-pixel);
+  font-size: 12px;
+}
+.loading-spinner {
+  border: 4px solid var(--blue);
+  border-top: 4px solid var(--blue-shadow);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+/* Project Complete Message */
+.project-complete-message {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--green);
+  border: 3px solid var(--green-shadow);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 6px 6px 0px 0px var(--green-shadow);
+}
+.project-complete-message h2 {
+  color: var(--text-main);
+  margin: 0;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
