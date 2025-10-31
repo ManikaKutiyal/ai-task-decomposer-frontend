@@ -8,7 +8,7 @@ import ProjectItem from './ProjectItem';
 import Confetti from 'react-confetti';
 
 // We'll set the base URL for our API
-const API_URL = 'http://localhost:5001/api';
+const API_URL = 'https://ai-task-decomposer-backend.vercel.app/api';
 
 function App() {
   const [projects, setProjects] = useState([]);
